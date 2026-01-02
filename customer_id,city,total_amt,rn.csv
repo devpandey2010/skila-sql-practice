@@ -1,0 +1,600 @@
+customer_id,city,total_amt,rn
+52,A Corua (La Corua),107.71,1
+101,Abha,96.76,1
+452,Abu Dhabi,107.68,1
+486,Acua,113.74,1
+327,Adana,112.74,1
+392,Addis Abeba,91.77,1
+210,Aden,137.69,1
+367,Adoni,101.78,1
+297,Ahmadnagar,128.67,1
+574,Akishima,109.72,1
+479,Akron,146.69,1
+33,Alessandria,91.79,1
+175,Allappuzha (Alleppey),98.76,1
+414,Allende,105.75,1
+359,Almirante Brown,101.75,1
+551,Alvorada,96.74,1
+225,Ambattur,120.74,1
+415,Amersfoort,93.77,1
+534,Amroha,88.76,1
+307,Angra dos Reis,134.7,1
+229,Anpolis,93.75,1
+45,Antofagasta,127.73,1
+216,Aparecida de Goinia,95.77,1
+137,Apeldoorn,194.61,1
+77,Araatuba,100.72,1
+36,Arak,92.73,1
+360,Arecibo,150.66,1
+305,Arlington,109.75,1
+102,Ashdod,137.67,1
+200,Ashgabat,136.73,1
+478,Ashqelon,86.81,1
+226,Asuncin,87.79,1
+3,Athenai,135.74,1
+397,Atinsk,105.71,1
+84,Atlixco,141.67,1
+96,Augusta-Richmond County,105.73,1
+537,Aurora,103.75,1
+330,Aurora,94.75,2
+560,Avellaneda,132.7,1
+398,Bag,78.84,1
+322,Baha Blanca,128.72,1
+538,Baicheng,117.71,1
+495,Baiyin,120.74,1
+333,Baku,109.73,1
+55,Balaiha,100.78,1
+366,Balikesir,152.63,1
+208,Balurghat,91.74,1
+352,Bamenda,99.77,1
+91,Bandar Seri Begawan,113.65,1
+584,Banjul,129.7,1
+568,Barcelona,66.79,1
+61,Basel,58.86,1
+315,Bat Yam,84.83,1
+172,Batman,145.67,1
+441,Batna,112.72,1
+516,Battambang,98.74,1
+71,Baybay,129.7,1
+188,Bayugan,92.75,1
+69,Bchar,96.75,1
+257,Beira,151.63,1
+212,Bellevue,91.8,1
+362,Belm,145.68,1
+528,Benguela,111.75,1
+543,Beni-Mellal,82.78,1
+284,Benin City,126.72,1
+439,Bergamo,151.64,1
+413,Berhampore (Baharampur),75.79,1
+155,Bern,109.75,1
+379,Bhavnagar,106.77,1
+209,Bhilwara,161.68,1
+529,Bhimavaram,118.71,1
+15,Bhopal,134.68,1
+202,Bhusawal,103.74,1
+468,Bijapur,175.61,1
+559,Bilbays,110.72,1
+533,Binzhou,141.67,1
+321,Birgunj,116.78,1
+94,Bislig,79.79,1
+206,Blumenau,126.73,1
+342,Boa Vista,130.68,1
+125,Boksburg,135.68,1
+230,Botosani,124.67,1
+132,Botshabelo,95.72,1
+85,Bradford,87.77,1
+325,Braslia,91.78,1
+357,Bratislava,89.74,1
+309,Brescia,147.69,1
+402,Brest,79.8,1
+499,Brindisi,123.7,1
+149,Brockton,121.74,1
+563,Bucuresti,110.71,1
+235,Buenaventura,93.75,1
+318,Bydgoszcz,52.88,1
+371,Cabuyao,149.65,1
+304,Callao,115.74,1
+532,Cam Ranh,152.68,1
+526,Cape Coral,221.55,1
+111,Caracas,97.74,1
+578,Carmen,96.78,1
+388,Cavite,124.7,1
+65,Cayenne,103.78,1
+587,Celaya,108.74,1
+167,Chandrapur,119.68,1
+75,Changhwa,155.59,1
+197,Changzhou,154.6,1
+509,Chapra,100.8,1
+406,Charlotte Amalie,122.68,1
+555,Chatsworth,74.83,1
+88,Cheju,87.79,1
+73,Chiayi,97.76,1
+38,Chisinau,127.66,1
+517,Chungho,105.75,1
+411,Cianjur,80.74,1
+239,Ciomas,142.66,1
+328,Ciparay,90.77,1
+14,Citrus Heights,117.72,1
+26,Citt del Vaticano,152.66,1
+205,Ciudad del Este,80.82,1
+140,Clarksville,83.82,1
+247,Coacalco de Berriozbal,104.78,1
+482,Coatzacoalcos,138.71,1
+182,Compton,97.74,1
+515,Coquimbo,126.72,1
+24,Crdoba,95.75,1
+467,Cuauhtmoc,139.71,1
+323,Cuautla,114.69,1
+575,Cuernavaca,126.71,1
+113,Cuman,113.71,1
+572,Czestochowa,108.75,1
+416,Dadu,121.69,1
+400,Dallas,124.72,1
+260,Datong,122.69,1
+347,Daugavpils,142.7,1
+27,Davao,126.69,1
+64,Daxian,100.67,1
+294,Dayton,113.74,1
+409,Deba Habe,104.77,1
+483,Denizli,88.82,1
+332,Dhaka,118.72,1
+440,Dhule (Dhulia),88.78,1
+466,Dongying,104.77,1
+293,Donostia-San Sebastin,158.69,1
+120,Dos Quebradas,143.68,1
+114,Duisburg,139.67,1
+142,Dundee,94.74,1
+430,Dzerzinsk,79.78,1
+341,Ede,106.77,1
+286,Effon-Alaiye,117.73,1
+455,El Alto,87.76,1
+451,El Fuerte,128.67,1
+420,El Monte,79.79,1
+17,Elista,98.79,1
+389,Emeishan,124.74,1
+474,Emmen,100.74,1
+110,Enshi,59.86,1
+448,Erlangen,135.71,1
+445,Escobar,102.74,1
+10,Esfahan,99.75,1
+507,Eskisehir,95.75,1
+121,Etawah,109.74,1
+530,Ezeiza,76.77,1
+313,Ezhou,89.77,1
+43,Faaa,99.76,1
+576,Fengshan,139.66,1
+192,Firozabad,99.77,1
+460,Florencia,109.75,1
+51,Fontana,138.67,1
+141,Fukuyama,130.68,1
+105,Funafuti,120.74,1
+211,Fuyu,151.66,1
+281,Fuzhou,50.86,1
+117,Gandhinagar,71.81,1
+593,Garden Grove,113.74,1
+561,Garland,96.73,1
+476,Gatineau,95.78,1
+480,Gaziantep,101.78,1
+394,Gijn,84.78,1
+461,Gingoog,97.72,1
+92,Goinia,133.72,1
+203,Gorontalo,88.8,1
+118,Grand Prairie,82.79,1
+173,Graz,119.71,1
+158,Greensboro,126.68,1
+364,Guadalajara,95.77,1
+427,Guaruj,114.76,1
+370,Gulbarga,70.81,1
+255,Hagonoy,70.82,1
+552,Haining,90.79,1
+199,Haiphong,103.75,1
+186,Haldia,114.69,1
+463,Halifax,91.75,1
+259,Halisahar,170.67,1
+251,Halle/Saale,120.69,1
+165,Hami,86.79,1
+8,Hamilton,92.76,1
+340,Hanoi,119.69,1
+150,Hidalgo,105.75,1
+264,Higashiosaka,98.75,1
+194,Hino,87.82,1
+299,Hiroshima,131.7,1
+470,Hodeida,160.68,1
+138,Hohhot,110.66,1
+412,Hoshiarpur,85.79,1
+348,Hsichuh,146.64,1
+384,Huaian,89.75,1
+136,Hubli-Dharwad,62.85,1
+582,Huejutla de Reyes,113.75,1
+108,Huixquilucan,132.7,1
+565,Hunuco,126.71,1
+310,Ibirit,97.8,1
+233,Idfu,89.77,1
+80,Ife,137.7,1
+198,Ikerre,141.63,1
+580,Iligan,99.73,1
+103,Ilorin,146.69,1
+349,Imus,138.71,1
+278,Inegl,88.74,1
+171,Ipoh,114.74,1
+519,Isesaki,103.77,1
+106,Ivanovo,100.77,1
+240,Iwaki,117.74,1
+54,Iwakuni,128.71,1
+396,Iwatsuki,111.73,1
+391,Izumisano,104.7,1
+408,Jaffna,116.7,1
+60,Jaipur,98.75,1
+153,Jakarta,94.76,1
+234,Jalib al-Shuyukh,111.74,1
+329,Jamalpur,127.68,1
+222,Jaroslavl,91.79,1
+128,Jastrzebie-Zdrj,127.68,1
+49,Jedda,130.72,1
+100,Jelets,102.76,1
+32,Jhansi,127.71,1
+168,Jinchang,135.66,1
+594,Jining,130.73,1
+595,Jinzhou,117.7,1
+224,Jodhpur,76.78,1
+471,Johannesburg,109.73,1
+504,Joliet,133.72,1
+581,Jos Azueta,107.73,1
+47,Juazeiro do Norte,108.78,1
+591,Juiz de Fora,134.73,1
+435,Junan,91.75,1
+369,Jurez,88.75,1
+218,Kabul,67.82,1
+18,Kaduna,91.78,1
+163,Kakamigahara,122.71,1
+301,Kaliningrad,92.79,1
+270,Kalisz,104.75,1
+79,Kamakura,84.78,1
+31,Kamarhati,104.74,1
+386,Kamjanets-Podilskyi,117.71,1
+510,Kamyin,122.74,1
+547,Kanazawa,99.77,1
+492,Kanchrapara,65.84,1
+308,Kansas City,105.75,1
+274,Karnal,152.65,1
+419,Katihar,89.75,1
+377,Kermanshah,93.74,1
+143,Kilis,89.78,1
+19,Kimberley,125.76,1
+99,Kimchon,91.76,1
+326,Kingstown,96.75,1
+179,Kirovo-Tepetsk,133.71,1
+193,Kisumu,109.75,1
+438,Kitwe,134.67,1
+109,Klerksdorp,107.74,1
+295,Kolpino,162.62,1
+545,Konotop,89.79,1
+401,Koriyama,74.78,1
+283,Korla,86.72,1
+393,Korolev,121.69,1
+289,Kowloon and New Kowloon,142.7,1
+7,Kragujevac,151.67,1
+124,Ktahya,73.82,1
+58,Kuching,115.73,1
+271,Kumbakonam,68.82,1
+34,Kurashiki,89.76,1
+376,Kurgan,110.72,1
+311,Kursk,120.77,1
+531,Kuwana,118.75,1
+488,La Paz,95.78,1
+89,La Plata,134.68,1
+437,La Romana,99.77,1
+151,Laiwu,92.73,1
+112,Lancaster,133.7,1
+422,Laohekou,97.74,1
+244,Lapu-Lapu,129.68,1
+6,Laredo,93.72,1
+598,Lausanne,83.78,1
+162,Le Mans,71.8,1
+267,Lengshuijiang,159.64,1
+569,Leshan,134.68,1
+473,Lhokseumawe,134.66,1
+129,Liaocheng,124.66,1
+23,Liepaja,119.7,1
+166,Lilongwe,123.72,1
+122,Lima,126.68,1
+63,Lincoln,112.75,1
+159,Linz,68.79,1
+44,Lipetsk,114.74,1
+541,Livorno,108.76,1
+160,Ljubertsy,106.73,1
+589,Loja,129.72,1
+512,London,115.74,1
+252,London,64.78,2
+501,Lublin,89.79,1
+387,Lubumbashi,101.74,1
+30,Lungtan,123.66,1
+183,Luzinia,76.77,1
+500,Madiun,115.72,1
+81,Mahajanga,93.78,1
+346,Maikop,155.68,1
+66,Malm,144.66,1
+382,Manchester,91.76,1
+263,Mandaluyong,122.71,1
+223,Mandi Bahauddin,80.83,1
+196,Mannheim,151.65,1
+453,Maracabo,111.77,1
+20,Mardan,115.7,1
+246,Maring,107.77,1
+9,Masqat,89.77,1
+177,Matamoros,71.77,1
+355,Matsue,72.8,1
+90,Meixian,110.72,1
+181,Memphis,174.66,1
+107,Merlo,126.7,1
+343,Mexicali,114.75,1
+316,Miraj,132.71,1
+491,Mit Ghamr,124.73,1
+253,Miyakonojo,127.71,1
+527,Mogiljov,81.76,1
+144,Molodetno,195.58,1
+570,Monclova,99.74,1
+256,Monywa,112.7,1
+46,Moscow,142.66,1
+579,Mosul,111.73,1
+131,Mukateve,128.7,1
+28,Munger (Monghyr),111.68,1
+481,Mwanza,115.71,1
+375,Mwene-Ditu,110.76,1
+4,Myingyan,81.78,1
+59,Mysore,133.73,1
+535,NDjamna,135.68,1
+433,Naala-Porto,133.75,1
+447,Nabereznyje Telny,113.71,1
+40,Nador,110.73,1
+152,Nagaon,83.79,1
+53,Nagareyama,115.7,1
+368,Najafabad,157.65,1
+237,Naju,144.67,1
+390,Nakhon Sawan,152.67,1
+472,Nam Dinh,141.7,1
+383,Namibe,103.73,1
+5,Nantou,144.62,1
+37,Nanyang,95.77,1
+432,Newcastle,116.77,1
+115,Nezahualcyotl,91.7,1
+520,Nha Trang,134.68,1
+48,Niznekamsk,76.83,1
+553,Novi Sad,107.76,1
+191,Novoterkassk,74.8,1
+344,Nukualofa,73.82,1
+207,Nuuk,137.66,1
+363,Nyeri,143.71,1
+174,Ocumare del Tuy,92.79,1
+277,Ogbomosho,144.68,1
+399,Okara,91.79,1
+489,Okayama,99.79,1
+365,Okinawa,103.77,1
+265,Olomouc,133.71,1
+50,Omdurman,169.65,1
+404,Omiya,139.7,1
+156,Ondo,101.75,1
+337,Onomichi,143.71,1
+189,Oshawa,93.78,1
+13,Osmaniye,131.73,1
+285,Otsu,135.74,1
+298,Oulu,101.74,1
+469,Ourense (Orense),177.6,1
+280,Owo,118.73,1
+250,Oyo,73.8,1
+434,Ozamis,128.73,1
+338,Paarl,114.72,1
+353,Pachuca de Soto,72.82,1
+42,Pak Kret,117.7,1
+268,Palghat (Palakkad),123.71,1
+542,Pangkal Pinang,94.82,1
+56,Papeete,135.7,1
+300,Parbhani,137.69,1
+95,Pathankot,77.82,1
+296,Patiala,129.7,1
+596,Patras,96.72,1
+76,Pavlodar,77.77,1
+116,Pemalang,111.73,1
+275,Peoria,108.7,1
+180,Pereira,98.77,1
+228,Phnom Penh,92.73,1
+169,Pingxiang,95.78,1
+487,Pjatigorsk,119.74,1
+571,Plock,121.76,1
+126,Po,117.72,1
+282,Ponce,103.73,1
+506,Pontianak,152.65,1
+254,Poos de Caldas,116.68,1
+262,Portoviejo,119.72,1
+372,Probolinggo,158.66,1
+421,Pudukkottai,119.73,1
+135,Pune,110.7,1
+426,Purnea (Purnia),126.73,1
+524,Purwakarta,87.81,1
+157,Pyongyang,113.69,1
+134,Qalyub,94.77,1
+242,Qinhuangdao,140.68,1
+459,Qomsheh,186.62,1
+585,Quilmes,117.76,1
+78,Rae Bareli,141.69,1
+554,Rajkot,101.78,1
+336,Rampur,119.7,1
+464,Rancagua,73.84,1
+358,Ranchi,80.79,1
+410,Richmond Hill,167.62,1
+74,Rio Claro,103.73,1
+496,Rizhao,88.79,1
+291,Roanoke,95.77,1
+494,Robamba,140.69,1
+457,Rockford,114.72,1
+540,Ruse,112.76,1
+407,Rustenburg,112.73,1
+227,Saarbrcken,87.76,1
+11,Sagamihara,106.76,1
+62,Saint Louis,84.77,1
+148,Saint-Denis,216.54,1
+22,Sal,113.78,1
+498,Salala,97.73,1
+273,Salamanca,157.65,1
+269,Salinas,129.7,1
+266,Salzburg,118.72,1
+217,Sambhal,98.77,1
+2,San Bernardino,128.73,1
+418,San Felipe de Puerto Plata,107.7,1
+319,San Felipe del Progreso,132.7,1
+425,San Juan Bautista Tuxtepec,104.74,1
+345,San Lorenzo,106.77,1
+243,San Miguel de Tucumn,82.76,1
+303,Sanaa,100.74,1
+178,Santa Brbara dOeste,194.61,1
+331,Santa F,122.73,1
+522,Santa Rosa,167.67,1
+549,Santiago de Compostela,77.8,1
+258,Santiago de los Caballeros,110.76,1
+354,Santo Andr,129.64,1
+546,Sanya,107.74,1
+1,Sasebo,118.68,1
+356,Satna,121.7,1
+423,Sawhaj,120.74,1
+567,Serpuhov,85.8,1
+185,Shahr-e Kord,84.77,1
+424,Shanwei,110.7,1
+485,Shaoguan,115.71,1
+292,Sharja,118.73,1
+378,Shenzhen,71.81,1
+25,Shikarpur,115.71,1
+238,Shimoga,94.79,1
+29,Shimonoseki,140.64,1
+68,Shivapuri,94.78,1
+119,Shubra al-Khayma,153.66,1
+195,Siegen,86.81,1
+502,Siliguri (Shiliguri),138.66,1
+82,Simferopol,130.74,1
+87,Sincelejo,145.7,1
+449,Sirjan,99.8,1
+518,Sivas,111.74,1
+176,Skikda,173.63,1
+127,Smolensk,107.76,1
+544,So Bernardo do Campo,98.78,1
+443,So Leopoldo,98.78,1
+490,Sogamoso,117.76,1
+562,Sokoto,109.75,1
+86,Songkhla,148.67,1
+314,Sorocaba,131.67,1
+145,Soshanguve,108.72,1
+335,Sousse,78.77,1
+381,South Hill,106.65,1
+583,Southampton,117.77,1
+16,Southend-on-Sea,120.71,1
+556,Southport,83.79,1
+83,Springs,101.75,1
+215,Stara Zagora,91.74,1
+146,Sterling Heights,139.71,1
+477,Stockport,109.78,1
+431,Sucre,95.77,1
+511,Suihua,99.76,1
+597,Sullana,99.75,1
+493,Sultanbeyli,112.77,1
+334,Sumqayit,135.7,1
+187,Sumy,159.72,1
+306,Sungai Petani,138.68,1
+214,Sunnyvale,116.69,1
+450,Surakarta,89.74,1
+428,Syktyvkar,78.8,1
+221,Syrakusa,132.72,1
+592,Szkesfehrvr,111.71,1
+190,Tabora,110.73,1
+279,Tabriz,135.69,1
+312,Tabuk,104.74,1
+320,Tafuna,71.8,1
+72,Taguig,99.6999999999999,1
+213,Taizz,111.72,1
+505,Talavera,97.79,1
+248,Tallahassee,50.85,1
+385,Tama,101.74,1
+287,Tambaram,115.71,1
+373,Tanauan,161.65,1
+405,Tandil,109.68,1
+21,Tangail,155.65,1
+577,Tanshui,118.72,1
+236,Tanza,175.58,1
+548,Tarlac,79.81,1
+164,Tarsus,66.84,1
+444,Tartu,115.7,1
+350,Teboksary,73.77,1
+458,Tegal,66.81,1
+161,Tel Aviv-Jaffa,112.7,1
+97,Tete,58.82,1
+249,Tianjin,107.77,1
+302,Tiefa,127.71,1
+599,Tieli,83.81,1
+566,Tokat,141.66,1
+536,Tonghae,117.75,1
+442,Tongliao,118.68,1
+133,Torren,98.73,1
+139,Touliu,113.73,1
+104,Toulon,92.76,1
+35,Toulouse,129.68,1
+317,Trshavn,114.72,1
+586,Tsaotun,64.81,1
+429,Tsuyama,105.79,1
+261,Tuguegarao,107.74,1
+380,Tychy,136.64,1
+170,Udaipur,119.74,1
+525,Udine,74.81,1
+503,Ueda,115.68,1
+245,Uijongbu,132.68,1
+446,Uluberia,116.69,1
+147,Urawa,127.66,1
+454,Uruapan,151.67,1
+204,Usak,147.65,1
+462,Usolje-Sibirskoje,159.67,1
+231,Uttarpara-Kotrung,110.74,1
+57,Vaduz,114.72,1
+539,Valencia,90.78,1
+288,Valle de Santiago,80.76,1
+290,Valle de la Pascua,109.72,1
+403,Valparai,166.65,1
+436,Vancouver,144.7,1
+123,Varanasi (Benares),100.76,1
+219,Vicente Lpez,101.74,1
+508,Vijayawada,127.75,1
+39,Vila Velha,141.71,1
+557,Vilnius,73.76,1
+523,Vinh,93.78,1
+374,Vitria de Santo Anto,103.72,1
+276,Warren,122.72,1
+588,Weifang,115.71,1
+201,Witten,108.75,1
+558,Wroclaw,135.72,1
+241,Xiangfan,122.66,1
+67,Xiangtan,99.78,1
+564,Xintai,91.76,1
+339,Xinxiang,127.7,1
+12,Yamuna Nagar,103.72,1
+513,Yangor,148.69,1
+272,Yantai,98.8,1
+361,Yaound,100.69,1
+41,Yerevan,118.75,1
+484,Yinchuan,139.7,1
+521,Yingkou,80.77,1
+497,York,129.72,1
+154,Yuncheng,130.7,1
+324,Yuzhou,103.75,1
+93,Zalantun,91.77,1
+220,Zanzibar,114.73,1
+514,Zaoyang,74.78,1
+465,Zapopan,69.83,1
+232,Zaria,95.75,1
+351,Zeleznogorsk,89.76,1
+573,Zhezqazghan,120.71,1
+550,Zhoushan,159.68,1
+456,Ziguinchor,100.75,1
+98,al-Ayn,106.75,1
+70,al-Hawiya,80.82,1
+590,al-Manama,112.75,1
+395,al-Qadarif,57.81,1
+417,al-Qatif,110.75,1
+130,guas Lindas de Gois,93.76,1
+475,ostka,103.76,1
+184,s-Hertogenbosch,90.77,1
