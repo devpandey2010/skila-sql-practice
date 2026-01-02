@@ -399,3 +399,30 @@ SELECT
     amount,
     SUM(amount) OVER (PARTITION BY customer_id) AS customer_total
 FROM payment;
+
+------------
+
+--LEAD()
+
+--Access previous row
+--Previous payment amount per customer.
+select customer_id,
+payment_date,
+amount,
+LAG(amount)over(PARTITION BY customer_id order by payment_date) as prev_amt
+from payment;
+
+--Difference between current and previous payment.
+select *,
+amount-LAG(amount)over(PARTITION BY customer_id order by payment_date) as diff
+from payment;
+
+--Days gap between rentals per customer.
+SELECT
+    customer_id,
+    rental_date -
+        LAG(rental_date) OVER (
+            PARTITION BY customer_id
+            ORDER BY rental_date
+        )AS gap_days
+FROM rental;
