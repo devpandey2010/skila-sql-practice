@@ -418,11 +418,303 @@ amount-LAG(amount)over(PARTITION BY customer_id order by payment_date) as diff
 from payment;
 
 --Days gap between rentals per customer.
+with dated_diff as(
+    select
+    customer_id,
+    rental_date,
+    Lag(rental_date)OVER(PARTITION BY customer_id order by rental_date) as previous_date
+FROM rental
+)
+select *,DATEDIFF(rental_date,previous_date)as gap from dated_diff;
+
 SELECT
     customer_id,
-    rental_date -
-        LAG(rental_date) OVER (
-            PARTITION BY customer_id
-            ORDER BY rental_date
-        )AS gap_days
+    rental_date,
+    CAST(
+        julianday(rental_date) -
+        julianday(
+            LAG(rental_date) OVER (
+                PARTITION BY customer_id
+                ORDER BY rental_date
+            )
+        ) AS INTEGER
+    ) AS gap_days
 FROM rental;
+
+
+--Q.Top 3 films per category
+with film_name as(
+    select 
+    cg.name as cname,
+    cg.category_id,
+    f.film_id,
+    f.title,
+    sum(p.amount) as amt
+    from film f join film_category fc on f.film_id=fc.film_id
+    join category cg on fc.category_id=cg.category_id
+    join inventory i on fc.film_id=i.film_id
+    join rental r on i.inventory_id=r.inventory_id
+    join payment p on r.rental_id=p.rental_id
+    group by cg.category_id,cg.name,f.film_id,f.title
+
+),
+ Ranked as
+ (
+    select *,
+    ROW_NUMBER()OVER(PARTITION BY cname order by amt desc) as rn
+    from film_name
+ )
+ select * from Ranked where rn<=3;
+
+ --Q.Revenue contribution per category
+ with contribution as(
+    select 
+    cg.category_id,
+    cg.name as cname,
+    sum(p.amount) as amt
+    from category cg join film_category fc on cg.category_id=fc.category_id
+    join inventory i on fc.film_id= i.film_id
+    join rental r on i.inventory_id=r.inventory_id
+    join payment p on r.rental_id=p.rental_id
+    group by cg.category_id,cg.name
+ ),
+ Ranked as(
+    select *,
+    round(
+    amt*100/sum(amt) over (),2) as rn
+    from contribution
+ )
+ select * from ranked;
+
+--Customer spending vs average
+with customer_rent as 
+(
+    select c.customer_id as cid,
+    c.first_name,
+    c.last_name,
+    sum(p.amount) as total_amt
+    from customer c join payment p on c.customer_id=p.customer_id
+    group by c.customer_id,c.first_name,c.last_name
+),
+Ranked as(
+    select *,
+    AVG(total_amt) over() as overall_avg
+    from customer_rent
+)
+select *,
+case
+    when total_amt>overall_avg then "Above Average"
+    when total_amt<overall_avg then "Below average"
+    else "Average"
+end as spending_category
+from Ranked;
+
+--Gap between rentals 
+select customer_id,rental_date,
+Lag(rental_date)over(partition by customer_id order by rental_date) as prev_day,
+cast(
+julianday(rental_date)-julianday(prev_day)as INTEGER) as
+gap_days
+from rental;
+
+--Rank customers per store
+WITH customer_spending AS (
+    SELECT 
+        c.store_id,
+        c.customer_id,
+        c.first_name,
+        c.last_name,
+        SUM(p.amount) AS total_spent
+    FROM customer c
+    JOIN payment p 
+        ON c.customer_id = p.customer_id
+    GROUP BY 
+        c.store_id, 
+        c.customer_id, 
+        c.first_name, 
+        c.last_name
+)
+SELECT *,
+       RANK() OVER (
+           PARTITION BY store_id 
+           ORDER BY total_spent DESC
+       ) AS store_rank
+FROM customer_spending;
+
+
+--Monthly running revenue
+
+--Repeat rental detection
+
+--Top actor by revenue
+with top_revenue as(
+    select a.actor_id,
+    a.first_name,
+    a.last_name,
+    sum(p.amount) as amt 
+    from actor a join film_actor fa on a.actor_id=fa.actor_id
+    join inventory i on fa.film_id=i.film_id
+    join rental r on i.inventory_id=r.inventory_id
+    join payment p on r.rental_id=p.rental_id
+    group by a.actor_id,a.first_name,a.last_name
+),
+Ranked as(
+    select *,
+    DENSE_RANK() over(order by amt desc) as rn
+    from top_revenue
+)
+select * from Ranked where rn=1;
+--Customer churn signal using LEAD
+
+--Rank categories by store revenue
+with rank_categories AS(
+    select cg.category_id,
+    cg.name,
+    s.store_id,
+    sum(p.amount) as amt
+    from category cg join film_category fc on cg.category_id=fc.category_id
+    join inventory i on fc.film_id=i.film_id
+    join rental r on i.inventory_id=r.inventory_id
+    join payment p on r.rental_id=p.rental_id
+    join staff st on p.staff_id=st.staff_id
+    join store s on st.store_id=s.store_id
+    group by cg.category_id,cg.name,s.store_id
+),
+Ranked as(
+    select *,
+    DENSE_RANK() over(PARTITION BY store_id ORDER BY amt desc) as Rn
+    from rank_categories
+)
+select * from Ranked;
+
+--Revenue contribution % per category per store
+WITH category_store_revenue AS (
+    SELECT 
+        s.store_id,
+        cg.category_id,
+        cg.name AS category_name,
+        SUM(p.amount) AS category_revenue
+    FROM category cg
+    JOIN film_category fc ON cg.category_id = fc.category_id
+    JOIN inventory i ON fc.film_id = i.film_id
+    JOIN rental r ON i.inventory_id = r.inventory_id
+    JOIN payment p ON r.rental_id = p.rental_id
+    JOIN staff st ON p.staff_id = st.staff_id
+    JOIN store s ON st.store_id = s.store_id
+    GROUP BY 
+        s.store_id,
+        cg.category_id,
+        cg.name
+),
+final AS (
+    SELECT *,
+           SUM(category_revenue) OVER (PARTITION BY store_id) AS store_total_revenue
+    FROM category_store_revenue
+)
+SELECT 
+    store_id,
+    category_id,
+    category_name,
+    category_revenue,
+    ROUND(
+        category_revenue * 100.0 / store_total_revenue, 2
+    ) AS revenue_contribution_pct
+FROM final
+ORDER BY store_id, revenue_contribution_pct DESC;
+
+--Top 80% revenue categories per store
+WITH category_store_revenue AS (
+    SELECT 
+        s.store_id,
+        cg.category_id,
+        cg.name AS category_name,
+        SUM(p.amount) AS category_revenue
+    FROM category cg
+    JOIN film_category fc ON cg.category_id = fc.category_id
+    JOIN inventory i ON fc.film_id = i.film_id
+    JOIN rental r ON i.inventory_id = r.inventory_id
+    JOIN payment p ON r.rental_id = p.rental_id
+    JOIN staff st ON p.staff_id = st.staff_id
+    JOIN store s ON st.store_id = s.store_id
+    GROUP BY 
+        s.store_id,
+        cg.category_id,
+        cg.name
+),
+final AS (
+    SELECT *,
+           SUM(category_revenue) OVER (PARTITION BY store_id) AS store_total_revenue
+    FROM category_store_revenue
+),
+percentages as(
+select * ,
+Round(category_revenue * 100.0 / store_total_revenue, 2
+    ) AS revenue_contribution_pct
+FROM final
+),
+cumulative as(
+    select *,
+    sum(revenue_contribution_pct) over(partition by store_id order by revenue_contribution_pct desc)as cumulative_pct
+    from percentages
+)
+select * from cumulative where cumulative_pct<=80;
+
+--Customers with increasing spending trend
+/* Give the customer whose spending trend is increasing*/
+with trend AS(
+    select c.customer_id,
+    c.first_name,
+    c.last_name,
+    p.amount as amt
+    from customer c join payment p on c.customer_id=p.customer_id
+    group by c.customer_id,c.first_name,c.last_name
+),
+Revenue AS(
+    select *,
+    coalesce(Lag(amt)over(PARTITION BY customer_id),0)as prev_revenue
+    from trend
+),
+Differences AS(
+    select *,
+    (
+        prev_revenue-amt
+    ) as diff
+    from revenue
+)
+select *
+from differences
+where 
+Not EXISTS(select 1
+from differences where diff<0);
+
+WITH ordered_payments AS (
+    SELECT 
+        c.customer_id,
+        c.first_name,
+        c.last_name,
+        p.payment_date,
+        p.amount,
+        LAG(p.amount) OVER (
+            PARTITION BY c.customer_id
+            ORDER BY p.payment_date
+        ) AS prev_amount
+    FROM customer c
+    JOIN payment p 
+        ON c.customer_id = p.customer_id
+),
+diffs AS (
+    SELECT *,
+           amount - prev_amount AS diff
+    FROM ordered_payments
+)
+SELECT DISTINCT
+    customer_id,
+    first_name,
+    last_name
+FROM diffs d
+WHERE prev_amount IS NOT NULL
+GROUP BY customer_id, first_name, last_name
+HAVING MIN(diff) > 0;
+
+
+
