@@ -717,4 +717,354 @@ GROUP BY customer_id, first_name, last_name
 HAVING MIN(diff) > 0;
 
 
+--For each category, find the film contributing highest % of category revenue.
+--Here we have to do three task 
+--1.We have to find total revenue of each category....2.we have to find % contribution of each for their corresponding category
+--3.We have to rank films on basis of % contribution then filter out te top film for each category
+
+--Task 1
+with payment_detail AS(
+select c.category_id,c.name,f.film_id,f.title,sum(p.amount) as film_sum from category c join film_category fc 
+on c.category_id=fc.category_id join film f on fc.film_id=f.film_id join 
+inventory i on f.film_id=i.film_id join rental r on i.inventory_id=r.inventory_id
+join payment p on r.rental_id=p.rental_id group by  c.category_id,c.name,f.film_id,f.title
+),
+revenue_contribution AS
+(
+    select *, film_sum*100/sum(film_sum)over(partition by category_id)as film_contribution from payment_detail
+),
+Ranked AS(
+    select *,ROW_NUMBER() over(PARTITION BY category_id order by film_contribution desc) as rn from revenue_contribution
+)
+select * from ranked where rn=1;
+
+
+--Find actors whose films generate more revenue than the average actor revenue.
+ select a.actor_id,a.first_name,a.last_name,sum(p.amount) from actor a join film_actor fa on a.actor_id=fa.actor_id
+    join inventory i on fa.film_id=i.film_id join rental r on i.inventory_id=r.inventory_id join payment p on
+    r.rental_id=p.payment_id group by a.actor_id,a.first_name,a.last_name;
+with actor_revenue AS(
+    select a.actor_id,a.first_name,a.last_name,sum(p.amount) as total_revenue_per_actor from actor a join film_actor fa on a.actor_id=fa.actor_id
+    join inventory i on fa.film_id=i.film_id join rental r on i.inventory_id=r.inventory_id join payment p on
+    r.rental_id=p.payment_id group by a.actor_id,a.first_name,a.last_name)
+
+    select * from actor_revenue where total_revenue_per_actor>(select avg(total_revenue_per_actor) from actor_revenue);
+
+--Find customers whose average rental amount is higher than overall average.
+/* Steps to solve
+1.Go to every customer find out the average of each customer
+2.Find the overall average of rental amount
+3.List all the customer who have greater rental avg than overall avg
+
+--------
+--------
+
+CORE CONCEPT--Aggregate functions inside HAVING work per group, not globally.
+------
+-------
+*/
+with customer_payment as(
+Select
+c.customer_id,
+c.first_name,
+c.last_name,
+avg(p.amount) as cust_payment
+from customer c
+join rental r on c.customer_id=r.customer_id
+join payment p on r.rental_id=p.rental_id
+group by c.customer_id,c.first_name,c.last_name
+)
+select * from customer_payment
+where cust_payment>
+(
+    select avg(amount) from payment 
+)
+order by cust_payment desc;
+
+--Identify customers whose rental frequency increased over time.
+/*This is a Question of TREND (INcreasing TREND) which is associated with time
+The CORE LOGIC of Trend-Type Questions (MEMORIZE THIS)
+
+To identify a trend, you must compare a current value with a previous value over time.
+
+Everything else is just implementation.
+
+🧠 Universal Trend-Solving Framework (Step-by-Step)
+
+Whenever you see words like:
+
+increasing
+
+decreasing
+
+growth
+
+decline
+
+trend
+
+change over time
+
+Follow this exact checklist:
+
+✅ Step 1: Choose the ENTITY
+
+Ask:
+
+“Trend of WHAT?”
+
+Examples:
+
+Customer
+
+Product
+
+Film
+
+Category
+
+This becomes:
+
+PARTITION BY entity_id
+
+✅ Step 2: Choose the TIME ORDER
+
+Ask:
+
+“What defines time?”
+
+Examples:
+
+Date
+
+Month
+
+Year
+
+Sequence number
+
+This becomes:
+
+ORDER BY time_column
+
+✅ Step 3: Decide the METRIC
+
+Ask:
+
+“What value is changing?”
+
+Examples:
+
+Rental count
+
+Revenue
+
+Average amount
+
+Gap between events
+
+This is:
+
+metric
+
+✅ Step 4: Access the PREVIOUS VALUE
+
+This is the heart of trend analysis.
+
+Tool:
+
+LAG(metric)
+
+
+Now you can compare:
+
+current_value  vs  previous_value
+
+✅ Step 5: Define the TREND CONDITION
+
+Ask:
+
+“What does increasing mean here?”
+
+Examples:
+
+current > previous → increasing
+
+current < previous → decreasing
+
+gap_days < prev_gap_days → more frequent
+
+✅ Step 6: Decide the QUALIFIER
+
+Ask:
+
+“How strong should the trend be?”
+
+Options:
+
+At least once
+
+Consistent increase
+
+Average increase
+
+Latest period only
+
+This controls:
+
+WHERE / HAVING
+
+🧩 One-Line Formula (VERY IMPORTANT)
+
+Trend = current − previous over ordered time
+
+If you remember only one thing, remember this.*/
+WITH rental_gaps AS (
+    SELECT
+        customer_id,
+        rental_date,
+        CAST(
+            julianday(rental_date) -
+            julianday(
+                LAG(rental_date) OVER (
+                    PARTITION BY customer_id
+                    ORDER BY rental_date
+                )
+            ) AS INTEGER
+        ) AS gap_days
+    FROM rental
+),
+gap_trends AS(
+    select
+    customer_id,
+    gap_days,
+    Lag(gap_days)over(partition by customer_id order by rental_date) as prev_gap
+    from rental_gaps
+)
+select distinct customer_id
+from gap_trends
+where gap_days<prev_gap;
+
+SELECT
+        customer_id,
+        strftime('%Y-%m', rental_date) AS month,
+        COUNT(*) AS rental_count
+    FROM rental
+    GROUP BY customer_id, month;
+
+
+ /*I prefer NOT EXISTS over NOT IN because NOT EXISTS is 
+NULL-safe and performs better, whereas NOT IN can return incorrect results if the subquery contains NULL values.
+*/
+-------------
+/*NOT EXISTS:
+Can stop scanning as soon as a match is found
+Works well with indexes
+Avoids building large in-memory lists
+------------
+NOT IN:
+Must evaluate the entire subquery result
+Can be slow for large datasets*/
+
+--Identify repeat rentals by customers using LAG().
+with rentals AS(
+    select 
+    c.customer_id,
+    c.first_name,
+    c.last_name,
+    DATE(r.rental_date) as rental_day,
+    Lag(Date(rental_date))over(partition by c.customer_id order by r.rental_date) as prev_day
+    from rental r join customer c on r.customer_id=c.customer_id
+)
+select *
+from rentals where rental_day=prev_day;
+
+--Find customers whose total spending exceeds the top 10% customers’ average spending.
+/* steps to solve the question
+1.First you just find out the Top 10% spending customers by cummulative spending 
+2.Find the avg of that top 10% 
+3.Find all the customers whose spending is greater that that avg value*/
+
+--step 1
+with sum_calculation AS(
+    select c.customer_id,
+    sum(p.amount) as cust_pay
+    from customer c join payment p on c.customer_id=p.customer_id
+    group by c.customer_id
+),
+percentage_contribution as(
+    select *,
+    (cust_pay*100/sum(cust_pay)over()) as percent_contri
+    from sum_calculation
+),
+cummulative_percentage AS(
+    select *,
+    sum(percent_contri) over(
+        order by cust_pay desc)as cummulative_contri
+    from percentage_contribution
+)
+    select customer_id,sum(amount) as amt from payment group by customer_id having amt>(
+    select
+    avg(cust_pay) as avg_of_customer from cummulative_percentage WHERE
+    cummulative_contri<=10
+    )
+    order by amt desc;
+
+--Show store-wise percentage contribution to total revenue.
+with percent_contribution AS(
+    select s.store_id,
+    sum(p.amount) as store_sum
+    from store s join staff st on s.store_id=st.store_id JOIN
+    payment p on st.staff_id=p.staff_id
+    group by s.store_id
+)
+select store_id,store_sum*100.0/sum(store_sum)over() as contri from percent_contribution;
+
+--Find peak rental hours
+/* By peak rental hours it means that the hour in which we are getting the maximum rental*/
+
+WITH hourly_rentals AS (
+    SELECT
+        strftime('%H', rental_date) AS rental_hour,
+        COUNT(*) AS rental_count
+    FROM rental
+    GROUP BY rental_hour
+)
+SELECT
+    rental_hour,
+    rental_count
+FROM hourly_rentals
+WHERE rental_count = (
+    SELECT MAX(rental_count)
+    FROM hourly_rentals
+);
+
+--Find actors who worked in films rented only once.
+select a.actor_id,a.first_name,a.last_name
+from actor a join film_actor fa on a.actor_id=fa.actor_id JOIN
+film f on fa.film_id=f.film_id join inventory i on f.film_id=i.film_id
+join rental r on i.inventory_id=r.inventory_id
+where EXISTS
+(
+    select 1,
+    count(*) as rental_count
+    from rental
+    where rental_count=1
+);
+SELECT DISTINCT
+    a.actor_id,
+    a.first_name,
+    a.last_name
+FROM actor a
+JOIN film_actor fa
+    ON a.actor_id = fa.actor_id
+WHERE EXISTS (
+    SELECT 1
+    FROM inventory i
+    JOIN rental r
+        ON i.inventory_id = r.inventory_id
+    WHERE i.film_id = fa.film_id
+    GROUP BY i.film_id
+    HAVING COUNT(*) = 1
+);
 
